@@ -4,6 +4,7 @@ import Gallery from "./Gallery/Gallery";
 import SearchForm from "./Search/SearchForm";
 import styles from "./App.module.css"
 import { ThreeDots } from 'react-loader-spinner'
+import Modal from "./Gallery/Modal";
 
 const PER_PAGE = 20;
 
@@ -13,7 +14,8 @@ class App extends Component {
     page: 1,
     images: [],
     isLoading: false,
-    loadMore: false
+    loadMore: false,
+    modal: null,
   }
   
   componentDidUpdate(_, prevState) {
@@ -59,16 +61,25 @@ class App extends Component {
     this.setState(prevState => ({page: prevState.page + 1}))
   }
 
+  showModal = (src, alt) => {
+    this.setState({modal: {src: src, alt: alt}})
+  }
+
+  unshowModal = () => {
+    this.setState({modal: null})
+  }
+
   render() {
-    const {images, loadMore, isLoading} = this.state
+    const {images, loadMore, isLoading, modal} = this.state
     return (
       <div className={styles.App}>
         <SearchForm onSubmitFunc={this.onHandleSubmit} />
-        <Gallery array={images} />
+        <Gallery array={images} showModal={this.showModal} />
         {isLoading && <div style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
           <ThreeDots color="#00BFFF" height={80} width={80} />
         </div>}
         {loadMore && <button onClick={this.onHandleLoadMore}>Load more</button>}
+        {modal !== null && <Modal src={modal.src} alt={modal.alt} unshowModal={this.unshowModal} />}
       </div>
     );
   }
