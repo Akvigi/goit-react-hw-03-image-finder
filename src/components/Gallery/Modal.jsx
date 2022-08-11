@@ -1,10 +1,18 @@
 import React, { Component } from "react";
 import { createPortal } from "react-dom";
 import styles from './Gallery.module.css'
-
+import PropTypes from 'prop-types'
 const modal = document.querySelector('#modal')
 
 class Modal extends Component {
+
+    static propTypes = {
+        src: PropTypes.string,
+        alt: PropTypes.string,
+        unshowModal: PropTypes.func,
+    }
+
+
     componentDidMount() {
         window.addEventListener("keydown", this.handleKeydown)
     }

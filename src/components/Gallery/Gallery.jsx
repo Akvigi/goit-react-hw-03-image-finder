@@ -1,6 +1,12 @@
 import { Component } from "react";
 import styles from "./Gallery.module.css"
+import PropTypes from 'prop-types'
+
 class Gallery extends Component {
+    static propTypes = {
+        array: PropTypes.array,
+        showModal: PropTypes.func,
+    }
     render() {
         const { array, showModal } = this.props
         return (

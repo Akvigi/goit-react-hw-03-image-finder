@@ -1,11 +1,13 @@
 import { Component } from "react";
 import styles from "./SearchForm.module.css"
-
+import PropTypes from 'prop-types'
 class SearchForm extends Component {
     state = {
         query: '',
     }
-
+    static propTypes = {
+        onSubmitFunc: PropTypes.func,
+    }
     onHandleInput = (e) => {
         const { value } = e.currentTarget;
         this.setState({query: value.toLowerCase().trim()})
